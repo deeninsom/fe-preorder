@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import LandingPage from "@/pages/LandingPage";
 import Layout from "@/components/layout/Layout";
 import Login from "@/pages/Auth/LoginPage";
 import Register from "@/pages/Auth/RegisterPage";
@@ -29,13 +30,12 @@ function ProtectedLayout() {
 }
 
 export const router = createBrowserRouter([
+  { path: "/", element: <LandingPage /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
   {
-    path: "/",
     element: <ProtectedLayout />,
     children: [
-      { index: true, element: <Navigate to="/dashboard" replace /> },
       { path: "dashboard", element: <Dashboard /> },
       { path: "orders", element: <Orders /> },
       { path: "inventory", element: <Inventory /> },

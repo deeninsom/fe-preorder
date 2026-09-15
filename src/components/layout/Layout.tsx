@@ -59,7 +59,7 @@ export default function Layout() {
             <LogoMark size={30} />
             <div>
               <div className="text-[15px] font-extrabold tracking-tight text-[var(--c-text)] leading-none">Nexora</div>
-              <div className="text-[9px] font-mono text-[var(--c-dim)] tracking-[0.12em] uppercase">Distribution</div>
+              <div className="text-[9px] font-mono text-[var(--c-dim)] tracking-[0.12em] uppercase">Preorder</div>
             </div>
           </div>
           <button className="md:hidden p-1 text-[var(--c-muted)] hover:bg-[var(--c-surface2)] rounded-md" onClick={() => setIsMobileMenuOpen(false)}>

@@ -7,164 +7,57 @@ export default function RegisterPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[var(--c-bg)]">
-      {/* =========================================================
-          MOBILE
-      ========================================================= */}
-      <div className="md:hidden min-h-screen flex flex-col">
-        {/* Mobile Header */}
-        <div className="relative h-44 shrink-0 overflow-hidden bg-gradient-to-br from-[#0a1628] via-[#0f2448] to-[#0a1628]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 30% 40%, rgba(61,127,255,0.2) 0%, transparent 60%), radial-gradient(circle at 80% 80%, rgba(6,182,212,0.15) 0%, transparent 50%)",
-            }}
-          />
+    <div className="min-h-screen bg-[var(--c-bg)] relative flex flex-col justify-center py-12 sm:px-6 lg:px-8 overflow-hidden font-sans">
+      {/* Animated Background */}
+      <div
+        className="absolute inset-0 z-0 opacity-50 pointer-events-none"
+        style={{
+          background: `
+            radial-gradient(circle at 100% 0%, rgba(217, 70, 239, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 0% 100%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+            radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 50%)
+          `,
+        }}
+      />
+      <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-[0.03] z-0 pointer-events-none" />
 
-          <div className="relative flex flex-col items-center justify-center h-full text-center px-6">
-            <LogoMark size={40} />
-
-            <div className="text-xl font-extrabold text-white tracking-tight mt-3">
-              Nexora
-            </div>
-
-            <div className="text-[10px] font-mono text-blue-300/60 tracking-[0.15em] uppercase mt-1">
-              Distribution Platform
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Form */}
-        <div className="flex-1 -mt-6 px-5 pb-8">
-          <div className="bg-[var(--c-surface)] rounded-2xl border border-[var(--c-border)] p-6 shadow-lg fade-in">
-            <h1 className="text-lg font-bold text-[var(--c-text)] m-0 mb-1">
-              Create your account
-            </h1>
-
-            <p className="text-[12.5px] text-[var(--c-muted)] m-0 mb-6">
-              Start your free trial today
-            </p>
-
-            <RegisterForm
-              onSuccess={() => navigate("/dashboard")}
-            />
-
-            <p className="text-[12.5px] text-[var(--c-muted)] text-center mt-5">
-              Already have an account?{" "}
-              <Link
-                to="/login"
-                className="text-[var(--c-accent)] font-medium"
-              >
-                Sign in
-              </Link>
-            </p>
-          </div>
+      <div className="relative sm:mx-auto sm:w-full sm:max-w-md z-10 animate-[fade-in_0.5s_ease-out]">
+        <div className="flex flex-col items-center justify-center text-center">
+          <Link to="/" className="inline-block hover:scale-105 transition-transform">
+            <LogoMark size={48} />
+          </Link>
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400">
+            Create an account
+          </h2>
+          <p className="mt-2 text-center text-sm text-slate-400">
+            Start managing preorders smarter
+          </p>
         </div>
       </div>
 
-      {/* =========================================================
-          DESKTOP
-      ========================================================= */}
-      <div className="hidden md:flex min-h-screen">
-        {/* LEFT - REGISTER */}
-        <div className="flex-1 flex flex-col items-center justify-center p-10">
-          <div className="w-full max-w-[400px] fade-in">
-            {/* Logo */}
-            <div className="flex items-center gap-2 mb-10">
-              <LogoMark size={36} />
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md relative z-10 animate-[fade-in_0.7s_ease-out]">
+        <div className="bg-white/[0.03] border border-white/10 py-8 px-4 shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] backdrop-blur-xl sm:rounded-2xl sm:px-10">
+          <RegisterForm onSuccess={() => navigate("/dashboard")} />
 
-              <div>
-                <div className="text-xl font-extrabold tracking-tight text-[var(--c-text)] leading-none">
-                  Nexora
-                </div>
-
-                <div className="text-[10px] font-mono text-[var(--c-dim)] tracking-wider uppercase">
-                  Distribution
-                </div>
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-white/10" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-transparent backdrop-blur-md text-slate-400">
+                  Already have an account?
+                </span>
               </div>
             </div>
 
-            {/* Heading */}
-            <h1 className="text-2xl font-bold text-[var(--c-text)] mb-1.5">
-              Create your account
-            </h1>
-
-            <p className="text-[13.5px] text-[var(--c-muted)] mb-8">
-              Start your free trial. No credit card required.
-            </p>
-
-            {/* Form */}
-            <RegisterForm
-              onSuccess={() => navigate("/dashboard")}
-            />
-
-            {/* Login Link */}
-            <p className="text-[12.5px] text-[var(--c-muted)] text-center mt-6">
-              Already have an account?{" "}
+            <div className="mt-6 flex justify-center">
               <Link
                 to="/login"
-                className="text-[var(--c-accent)] font-medium hover:underline"
+                className="font-medium text-cyan-400 hover:text-cyan-300 transition-colors"
               >
-                Sign in
+                Sign in instead
               </Link>
-            </p>
-          </div>
-        </div>
-
-        {/* RIGHT - BRAND PANEL */}
-        <div className="flex-1 flex flex-col items-center justify-center p-12 relative overflow-hidden bg-gradient-to-br from-[#0a1628] via-[#0f2448] to-[#0a1628]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 30% 40%, rgba(61,127,255,0.15) 0%, transparent 60%), radial-gradient(circle at 70% 70%, rgba(6,182,212,0.1) 0%, transparent 50%)",
-            }}
-          />
-
-          <div className="relative text-center max-w-[380px]">
-            <div className="text-[11px] font-mono text-blue-300/60 tracking-[0.15em] uppercase mb-6">
-              B2B Distribution Platform
-            </div>
-
-            <h2 className="text-3xl font-bold text-white leading-tight tracking-tight mb-5">
-              Start managing your distribution smarter.
-            </h2>
-
-            <p className="text-sm text-blue-100/70 leading-relaxed mb-8">
-              Connect your team, products, warehouses,
-              and orders in one platform built for
-              modern B2B operations.
-            </p>
-
-            <div className="flex flex-col gap-3">
-              {[
-                [
-                  "Centralized",
-                  "Orders & inventory management",
-                ],
-                [
-                  "Connected",
-                  "Warehouses & distribution",
-                ],
-                [
-                  "Scalable",
-                  "Built for growing businesses",
-                ],
-              ].map(([value, label]) => (
-                <div
-                  key={value}
-                  className="flex items-center justify-between py-3 px-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm"
-                >
-                  <span className="text-xs text-blue-100/60">
-                    {label}
-                  </span>
-
-                  <span className="font-mono text-sm font-semibold text-white">
-                    {value}
-                  </span>
-                </div>
-              ))}
             </div>
           </div>
         </div>

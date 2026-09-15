@@ -197,7 +197,7 @@ function OrganizationTab() {
     timezone: "America/New_York",
     currency: "USD",
     language: "English (US)",
-    industry: "B2B Distribution",
+    industry: "B2B Preorder",
     size: "201–500",
   });
 

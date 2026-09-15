@@ -82,7 +82,7 @@ export function LoginForm({
             className="flex flex-col gap-4"
         >
             <div>
-                <label className="text-xs font-medium text-[var(--c-muted)] block mb-1.5">
+                <label className="text-xs font-medium text-slate-400 block mb-1.5">
                     Email address
                 </label>
 
@@ -94,12 +94,12 @@ export function LoginForm({
                     }
                     placeholder="you@company.com"
                     autoComplete="email"
-                    className="w-full py-2.5 px-3.5 rounded-lg border border-[var(--c-border)] bg-[var(--c-surface)] text-[var(--c-text)] text-[13.5px] outline-none focus:border-[var(--c-accent)] transition-colors"
+                    className="w-full py-2.5 px-3.5 rounded-lg border border-white/10 bg-white/5 text-slate-200 text-[13.5px] outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 transition-all placeholder:text-slate-500"
                 />
             </div>
 
             <div>
-                <label className="text-xs font-medium text-[var(--c-muted)] block mb-1.5">
+                <label className="text-xs font-medium text-slate-400 block mb-1.5">
                     Password
                 </label>
 
@@ -116,7 +116,7 @@ export function LoginForm({
                         }
                         placeholder="••••••••"
                         autoComplete="current-password"
-                        className="w-full py-2.5 pr-10 pl-3.5 rounded-lg border border-[var(--c-border)] bg-[var(--c-surface)] text-[var(--c-text)] text-[13.5px] outline-none focus:border-[var(--c-accent)] transition-colors"
+                        className="w-full py-2.5 pr-10 pl-3.5 rounded-lg border border-white/10 bg-white/5 text-slate-200 text-[13.5px] outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 transition-all placeholder:text-slate-500"
                     />
 
                     <button
@@ -124,7 +124,7 @@ export function LoginForm({
                         onClick={() =>
                             setShowPassword((value) => !value)
                         }
-                        className="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-[var(--c-dim)]"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 bg-transparent border-none cursor-pointer text-slate-400 hover:text-slate-200 transition-colors"
                     >
                         {showPassword ? (
                             <EyeOff size={15} />
@@ -138,9 +138,9 @@ export function LoginForm({
             <button
                 type="submit"
                 disabled={loading}
-                className={`py-2.5 px-5 rounded-lg text-white text-sm font-semibold border-none mt-1 transition-opacity ${loading
-                        ? "bg-[var(--c-accent-bg)] cursor-not-allowed opacity-70"
-                        : "bg-[var(--c-accent)] cursor-pointer hover:opacity-90"
+                className={`w-full py-3 rounded-lg text-white text-sm font-bold border-none mt-2 transition-all shadow-lg ${loading
+                        ? "bg-slate-700 cursor-not-allowed opacity-70"
+                        : "bg-gradient-to-r from-cyan-500 to-indigo-500 hover:from-cyan-400 hover:to-indigo-400 cursor-pointer shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-0.5"
                     }`}
             >
                 {loading
@@ -152,7 +152,7 @@ export function LoginForm({
                 <button
                     type="button"
                     onClick={() => fillDemo("admin")}
-                    className="flex-1 py-1.5 px-3 rounded-lg border border-[var(--c-border)] bg-[var(--c-surface2)] text-[11.5px] text-[var(--c-muted)] font-mono hover:bg-[var(--c-surface3)] transition-colors"
+                    className="flex-1 py-2 px-3 rounded-lg border border-white/5 bg-white/5 text-[11.5px] text-slate-400 font-mono hover:bg-white/10 hover:text-slate-200 transition-colors"
                 >
                     Demo: Admin
                 </button>
@@ -160,7 +160,7 @@ export function LoginForm({
                 <button
                     type="button"
                     onClick={() => fillDemo("owner")}
-                    className="flex-1 py-1.5 px-3 rounded-lg border border-[var(--c-border)] bg-[var(--c-surface2)] text-[11.5px] text-[var(--c-muted)] font-mono hover:bg-[var(--c-surface3)] transition-colors"
+                    className="flex-1 py-2 px-3 rounded-lg border border-white/5 bg-white/5 text-[11.5px] text-slate-400 font-mono hover:bg-white/10 hover:text-slate-200 transition-colors"
                 >
                     Demo: Owner
                 </button>

@@ -81,7 +81,7 @@ export default function OwnerAdmin() {
         </div>
 
         <div style={{ background: "var(--c-surface)", border: "1px solid var(--c-border)", borderRadius: 12, padding: 18 }}>
-          <p style={{ fontSize: 10.5, fontFamily: "JetBrains Mono, monospace", color: "var(--c-muted)", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 14px" }}>Plan Distribution</p>
+          <p style={{ fontSize: 10.5, fontFamily: "JetBrains Mono, monospace", color: "var(--c-muted)", textTransform: "uppercase", letterSpacing: "0.1em", margin: "0 0 14px" }}>Plan Preorder</p>
           {[
             { plan: "Enterprise", count: tenants.filter((t) => t.plan === "Enterprise").length, mrr: tenants.filter((t) => t.plan === "Enterprise" && t.status === "active").reduce((s, t) => s + t.mrr, 0) },
             { plan: "Pro",        count: tenants.filter((t) => t.plan === "Pro").length,        mrr: tenants.filter((t) => t.plan === "Pro" && t.status === "active").reduce((s, t) => s + t.mrr, 0) },

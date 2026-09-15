@@ -18,7 +18,7 @@ export interface Order {
 export const orders: Order[] = [
   { id: "ORD-48291", customer: "Meridian Industrial Co.", items: 34, value: 84200, priority: "HIGH", status: "PROCESSING", eta: "Sep 11", region: "Northeast", carrier: "FedEx Freight", created: "Sep 10 08:14", sku: ["SK-9921","SK-4401","SK-2210"] },
   { id: "ORD-48290", customer: "Apex Wholesale Ltd.", items: 12, value: 21500, priority: "STD", status: "PACKED", eta: "Sep 12", region: "Midwest", carrier: "UPS Ground", created: "Sep 10 07:52", sku: ["SK-1102","SK-8831"] },
-  { id: "ORD-48289", customer: "Global Distributors Inc.", items: 78, value: 156800, priority: "HIGH", status: "SHIPPED", eta: "Sep 11", region: "West", carrier: "DHL Express", created: "Sep 09 16:30", sku: ["SK-3341","SK-7720","SK-5501","SK-9921"] },
+  { id: "ORD-48289", customer: "Global Preorders Inc.", items: 78, value: 156800, priority: "HIGH", status: "SHIPPED", eta: "Sep 11", region: "West", carrier: "DHL Express", created: "Sep 09 16:30", sku: ["SK-3341","SK-7720","SK-5501","SK-9921"] },
   { id: "ORD-48288", customer: "CoreTech Supply", items: 7, value: 9340, priority: "LOW", status: "DELIVERED", eta: "Sep 10", region: "South", carrier: "USPS Priority", created: "Sep 08 14:00", sku: ["SK-2210"] },
   { id: "ORD-48287", customer: "Pacific Rim Exports", items: 41, value: 67900, priority: "STD", status: "PROCESSING", eta: "Sep 13", region: "West", carrier: "FedEx Freight", created: "Sep 10 09:05", sku: ["SK-4401","SK-1102"] },
   { id: "ORD-48286", customer: "Northern Logistics AG", items: 22, value: 38450, priority: "HIGH", status: "HOLD", eta: "Sep 14", region: "Northeast", carrier: "Maersk Line", created: "Sep 09 11:20", sku: ["SK-6610","SK-9921"] },
@@ -95,7 +95,7 @@ export interface Shipment {
 }
 
 export const shipments: Shipment[] = [
-  { id: "SHP-8821", orderId: "ORD-48289", customer: "Global Distributors Inc.", carrier: "DHL Express", tracking: "1234567890123", origin: "WH-01 Newark", destination: "Los Angeles, CA", status: "IN_TRANSIT", eta: "Sep 11", dispatched: "Sep 09 17:00", weight: "1,240 kg", pallets: 3 },
+  { id: "SHP-8821", orderId: "ORD-48289", customer: "Global Preorders Inc.", carrier: "DHL Express", tracking: "1234567890123", origin: "WH-01 Newark", destination: "Los Angeles, CA", status: "IN_TRANSIT", eta: "Sep 11", dispatched: "Sep 09 17:00", weight: "1,240 kg", pallets: 3 },
   { id: "SHP-8820", orderId: "ORD-48285", customer: "Summit Trade Partners", carrier: "UPS Ground", tracking: "1Z999AA10123456784", origin: "WH-04 Dallas", destination: "Chicago, IL", status: "IN_TRANSIT", eta: "Sep 12", dispatched: "Sep 09 12:00", weight: "480 kg", pallets: 1 },
   { id: "SHP-8819", orderId: "ORD-48282", customer: "Eastern Manufacturing", carrier: "FedEx Freight", tracking: "789274476699", origin: "WH-01 Newark", destination: "Detroit, MI", status: "OUT_FOR_DELIVERY", eta: "Sep 11", dispatched: "Sep 08 08:00", weight: "2,100 kg", pallets: 6 },
   { id: "SHP-8818", orderId: "ORD-48288", customer: "CoreTech Supply", carrier: "USPS Priority", tracking: "9400111899223822901956", origin: "WH-04 Dallas", destination: "Houston, TX", status: "DELIVERED", eta: "Sep 10", dispatched: "Sep 08 09:30", weight: "95 kg", pallets: 1 },
@@ -141,7 +141,7 @@ export const revenueData = [
 ];
 
 export const topCustomers = [
-  { name: "Global Distributors Inc.", orders: 48, revenue: 842000, region: "West" },
+  { name: "Global Preorders Inc.", orders: 48, revenue: 842000, region: "West" },
   { name: "Meridian Industrial Co.", orders: 31, revenue: 621000, region: "Northeast" },
   { name: "Delta Retail Group", orders: 27, revenue: 489000, region: "South" },
   { name: "Eastern Manufacturing", orders: 22, revenue: 376000, region: "Midwest" },

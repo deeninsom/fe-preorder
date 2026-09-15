@@ -35,7 +35,7 @@ export function LogoFull({ size = 32 }: LogoFullProps) {
           Nexora
         </div>
         <div style={{ fontSize: size * 0.28, fontFamily: "JetBrains Mono, monospace", color: "var(--c-dim)", letterSpacing: "0.12em", textTransform: "uppercase", lineHeight: 1.2 }}>
-          Distribution
+          Preorder
         </div>
       </div>
     </div>
