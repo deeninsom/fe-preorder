@@ -1,10 +1,11 @@
 interface LogoMarkProps {
   size?: number;
+  className?: string;
 }
 
-export function LogoMark({ size = 32 }: LogoMarkProps) {
+export function LogoMark({ size = 32, className }: LogoMarkProps) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={size} height={size} viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
       <rect width="32" height="32" rx="9" fill="var(--c-accent)" />
       {/* top-left node */}
       <circle cx="9.5" cy="10" r="2.5" fill="white" />

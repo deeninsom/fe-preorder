@@ -36,8 +36,8 @@ export function RegisterForm({
 
     const checks = [
         {
-            label: "At least 8 characters",
-            ok: form.pass.length >= 8,
+            label: "At least 6 characters",
+            ok: form.pass.length >= 6,
         },
         {
             label: "Contains a number",
@@ -78,10 +78,10 @@ export function RegisterForm({
             return;
         }
 
-        if (form.pass.length < 8) {
+        if (form.pass.length < 6) {
             toastError(
                 "Validation error",
-                "Password must be at least 8 characters."
+                "Password must be at least 6 characters."
             );
             return;
         }
@@ -188,18 +188,18 @@ export function RegisterForm({
                     <div key={key}>
                         <label
                             htmlFor={key}
-                            className="text-xs font-medium text-slate-400 block mb-1.5"
+                            className="text-sm font-medium text-[var(--c-text)] block mb-1.5"
                         >
                             {label}
 
                             {required && (
-                                <span className="text-cyan-400 ml-0.5">
+                                <span className="text-[var(--c-accent)] ml-0.5">
                                     *
                                 </span>
                             )}
 
                             {!required && (
-                                <span className="text-slate-500 ml-1">
+                                <span className="text-[var(--c-dim)] ml-1">
                                     (Optional)
                                 </span>
                             )}
@@ -217,23 +217,23 @@ export function RegisterForm({
                                     ? "new-password"
                                     : key
                             }
-                            className="w-full py-2.5 px-3.5 rounded-lg border border-white/10 bg-white/5 text-slate-200 text-[13.5px] outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 transition-all placeholder:text-slate-500"
+                            className="w-full py-2.5 px-3.5 rounded-xl border border-[var(--c-border)] bg-[var(--c-surface)] text-[var(--c-text)] text-[14px] outline-none focus:border-[var(--c-accent)] focus:ring-2 focus:ring-[var(--c-accent)]/20 transition-all placeholder:text-[var(--c-dim)] shadow-sm"
                         />
                     </div>
                 )
             )}
 
             {form.pass.length > 0 && (
-                <div className="flex flex-col gap-1.5 p-3 rounded-lg border border-white/5 bg-white/5 fade-in">
+                <div className="flex flex-col gap-1.5 p-3 rounded-xl border border-[var(--c-border)] bg-[var(--c-surface2)] fade-in">
                     {checks.map((check) => (
                         <div
                             key={check.label}
-                            className={`flex items-center gap-1.5 text-[11.5px] ${check.ok
-                                    ? "text-cyan-400"
-                                    : "text-slate-500"
+                            className={`flex items-center gap-1.5 text-xs ${check.ok
+                                ? "text-[var(--c-accent)] font-medium"
+                                : "text-[var(--c-muted)]"
                                 }`}
                         >
-                            <CheckCircle2 size={12} />
+                            <CheckCircle2 size={14} className={check.ok ? "text-[var(--c-accent)]" : "text-[var(--c-dim)]"} />
                             <span>{check.label}</span>
                         </div>
                     ))}
@@ -243,9 +243,9 @@ export function RegisterForm({
             <button
                 type="submit"
                 disabled={loading}
-                className={`w-full py-3 rounded-lg text-white text-sm font-bold border-none mt-2 transition-all shadow-lg ${loading
-                        ? "bg-slate-700 cursor-not-allowed opacity-70"
-                        : "bg-gradient-to-r from-cyan-500 to-indigo-500 hover:from-cyan-400 hover:to-indigo-400 cursor-pointer shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:-translate-y-0.5"
+                className={`w-full py-3 rounded-xl text-white text-sm font-semibold border-none mt-2 transition-all shadow-md ${loading
+                    ? "bg-[var(--c-surface3)] cursor-not-allowed opacity-70 text-[var(--c-text)] shadow-none"
+                    : "bg-[var(--c-accent)] hover:bg-[var(--c-accent)]/90 cursor-pointer hover:shadow-lg hover:-translate-y-0.5"
                     }`}
             >
                 {loading

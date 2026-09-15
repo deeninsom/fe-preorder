@@ -156,13 +156,13 @@ export default function Inventory() {
               <button onClick={() => setEditing(null)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--c-dim)" }}><X size={16} /></button>
             </div>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
-              {([["Name", "name"], ["Category", "category"], ["Unit", "unit"], ["Location", "location"], ["Supplier", "supplier"]] as [string,string][]).map(([lbl, key]) => (
+              {([["Name", "name"], ["Category", "category"], ["Unit", "unit"], ["Location", "location"], ["Supplier", "supplier"]] as [string, string][]).map(([lbl, key]) => (
                 <div key={key} style={{ gridColumn: key === "name" ? "1/-1" : undefined }}>
                   <label style={{ fontSize: 12, color: "var(--c-muted)", display: "block", marginBottom: 5 }}>{lbl}</label>
                   <input value={(editing as any)[key]} onChange={(e) => setEditing((p) => p ? { ...p, [key]: e.target.value } : p)} style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: "1px solid var(--c-border)", background: "var(--c-surface2)", color: "var(--c-text)", fontSize: 13, outline: "none", boxSizing: "border-box" as const }} />
                 </div>
               ))}
-              {([["Stock", "stock"], ["Reorder at", "reorder"], ["Capacity", "cap"], ["Unit value ($)", "value"]] as [string,string][]).map(([lbl, key]) => (
+              {([["Stock", "stock"], ["Reorder at", "reorder"], ["Capacity", "cap"], ["Unit value ($)", "value"]] as [string, string][]).map(([lbl, key]) => (
                 <div key={key}>
                   <label style={{ fontSize: 12, color: "var(--c-muted)", display: "block", marginBottom: 5 }}>{lbl}</label>
                   <input type="number" value={(editing as any)[key]} onChange={(e) => setEditing((p) => p ? { ...p, [key]: Number(e.target.value) } : p)} style={{ width: "100%", padding: "9px 12px", borderRadius: 8, border: "1px solid var(--c-border)", background: "var(--c-surface2)", color: "var(--c-text)", fontSize: 13, outline: "none", boxSizing: "border-box" as const }} />

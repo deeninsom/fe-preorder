@@ -3,7 +3,9 @@ import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, Package, ShoppingCart, Warehouse, Truck,
   BarChart2, Bell, Settings, ChevronDown, User, Sun, Moon,
-  AlertTriangle, LogOut, Crown, Menu, X
+  AlertTriangle, LogOut, Crown, Menu, X,
+  CreditCard,
+  Box
 } from "lucide-react";
 import { useAuth } from "@/features/Auth/hooks/useAuth";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -14,11 +16,14 @@ import ToastContainer from "@/components/ui/Toast";
 const navItems = [
   { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { to: "/orders", label: "Orders", icon: ShoppingCart, badge: "1.2k" },
-  { to: "/inventory", label: "Inventory", icon: Package, badge: "47" },
-  { to: "/warehouses", label: "Warehouses", icon: Warehouse },
-  { to: "/shipments", label: "Shipments", icon: Truck },
-  { to: "/analytics", label: "Analytics", icon: BarChart2 },
-  { to: "/alerts", label: "Alerts", icon: AlertTriangle, badge: "6" },
+  { to: "/preorders", label: "Preorder", icon: Package },
+  { to: "/products", label: "Product", icon: Box },
+  { to: "/payments", label: "Payments", icon: CreditCard },
+  // { to: "/inventory", label: "Inventory", icon: Package, badge: "47" },
+  // { to: "/warehouses", label: "Warehouses", icon: Warehouse },
+  // { to: "/shipments", label: "Shipments", icon: Truck },
+  // { to: "/analytics", label: "Analytics", icon: BarChart2 },
+  // { to: "/alerts", label: "Alerts", icon: AlertTriangle, badge: "6" },
 ];
 
 export default function Layout() {
