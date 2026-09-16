@@ -28,3 +28,10 @@ export async function uploadImage(
 
     return response.data.url;
 }
+
+export async function fetchImage(url: string): Promise<string> {
+    const response = await api.get(url, {
+        responseType: "blob",
+    });
+    return URL.createObjectURL(response.data);
+}

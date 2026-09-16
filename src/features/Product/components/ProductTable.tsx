@@ -10,6 +10,7 @@ import DataTable, {
     type DataTableColumn,
 } from "@/components/ui/DataTable";
 
+import { SecureImage } from "@/components/ui/SecureImage";
 import type {
     Product,
 } from "@/features/Product/types/product.type";
@@ -73,7 +74,7 @@ export default function ProductTable({
                 <div className="flex items-center gap-3">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-slate-100">
                         {product.imageUrl ? (
-                            <img
+                            <SecureImage
                                 src={product.imageUrl}
                                 alt={product.name}
                                 className="h-full w-full object-cover"

@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 
 import type { Product } from "@/features/Product/types/product.type";
+import { SecureImage } from "@/components/ui/SecureImage";
 
 interface ProductDetailDrawerProps {
     product: Product | null;
@@ -126,7 +127,7 @@ export default function ProductDetailDrawer({
                 </div>
 
                 {product.imageUrl && (
-                    <img
+                    <SecureImage
                         src={
                             product.imageUrl
                         }
