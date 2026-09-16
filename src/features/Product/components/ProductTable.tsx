@@ -88,11 +88,11 @@ export default function ProductTable({
                     </div>
 
                     <div className="min-w-0">
-                        <p className="truncate font-medium text-slate-900">
+                        <p className="truncate font-medium" style={{ color: "var(--c-text)" }}>
                             {product.name}
                         </p>
 
-                        <p className="truncate text-xs text-slate-500">
+                        <p className="truncate text-xs" style={{ color: "var(--c-dim)" }}>
                             {product.slug}
                         </p>
                     </div>
@@ -112,7 +112,7 @@ export default function ProductTable({
             width: 150,
 
             cell: (product) => (
-                <span className="font-mono text-sm text-slate-600">
+                <span className="font-mono text-sm" style={{ color: "var(--c-muted)" }}>
                     {product.sku || "-"}
                 </span>
             ),
@@ -129,7 +129,7 @@ export default function ProductTable({
             width: 150,
 
             cell: (product) => (
-                <span className="font-medium text-slate-900">
+                <span className="font-medium" style={{ color: "var(--c-text)" }}>
                     {formatPrice(
                         product.price
                     )}
@@ -155,9 +155,12 @@ export default function ProductTable({
                     <span
                         className={
                             isLowStock
-                                ? "font-semibold text-red-600"
-                                : "text-slate-700"
+                                ? "font-semibold"
+                                : ""
                         }
+                        style={{
+                            color: isLowStock ? "var(--c-red)" : "var(--c-muted)",
+                        }}
                     >
                         {product.stock}
                     </span>
@@ -174,7 +177,7 @@ export default function ProductTable({
             width: 100,
 
             cell: (product) => (
-                <span className="text-slate-600">
+                <span style={{ color: "var(--c-muted)" }}>
                     {product.variants
                         ?.length ?? 0}
                 </span>
@@ -192,11 +195,11 @@ export default function ProductTable({
 
             cell: (product) => (
                 <span
-                    className={
-                        product.isActive
-                            ? "inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700"
-                            : "inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600"
-                    }
+                    className="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium"
+                    style={{
+                        background: product.isActive ? "var(--c-green-bg)" : "var(--c-surface2)",
+                        color: product.isActive ? "var(--c-green)" : "var(--c-dim)",
+                    }}
                 >
                     {product.isActive
                         ? "Active"

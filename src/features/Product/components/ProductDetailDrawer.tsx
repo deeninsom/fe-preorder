@@ -3,9 +3,10 @@ import {
     Pencil,
     Trash2,
     X,
+    Plus,
 } from "lucide-react";
 
-import type { Product } from "@/features/Product/types/product.type";
+import type { Product, ProductVariant } from "@/features/Product/types/product.type";
 import { SecureImage } from "@/components/ui/SecureImage";
 
 interface ProductDetailDrawerProps {
@@ -13,6 +14,9 @@ interface ProductDetailDrawerProps {
     onClose: () => void;
     onEdit: (product: Product) => void;
     onDelete: (product: Product) => void;
+    onAddVariant?: (productId: string) => void;
+    onEditVariant?: (variant: ProductVariant) => void;
+    onDeleteVariant?: (variant: ProductVariant) => void;
 }
 
 export default function ProductDetailDrawer({
@@ -20,6 +24,9 @@ export default function ProductDetailDrawer({
     onClose,
     onEdit,
     onDelete,
+    onAddVariant,
+    onEditVariant,
+    onDeleteVariant,
 }: ProductDetailDrawerProps) {
     if (!product) {
         return null;
@@ -283,6 +290,29 @@ export default function ProductDetailDrawer({
                         </span>
                     </div>
 
+                    <button
+                        onClick={() => onAddVariant?.(product.id)}
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: 6,
+                            width: "100%",
+                            padding: 8,
+                            borderRadius: 8,
+                            background: "var(--c-accent)",
+                            color: "#fff",
+                            border: "none",
+                            fontSize: 12,
+                            fontWeight: 600,
+                            cursor: "pointer",
+                            marginBottom: 12,
+                        }}
+                    >
+                        <Plus size={13} />
+                        Add Variant
+                    </button>
+
                     {product.variants?.length ? (
                         product.variants.map(
                             (variant) => (
@@ -373,6 +403,39 @@ export default function ProductDetailDrawer({
                                                 variant.stock
                                             }
                                         </div>
+                                    </div>
+                                    
+                                    <div style={{ display: 'flex', gap: 6, marginLeft: 10 }}>
+                                        <button
+                                            onClick={() => onEditVariant?.(variant)}
+                                            style={{
+                                                background: "var(--c-surface2)",
+                                                border: "none",
+                                                color: "var(--c-text)",
+                                                cursor: "pointer",
+                                                padding: 6,
+                                                borderRadius: 6,
+                                                display: "flex",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Pencil size={12} />
+                                        </button>
+                                        <button
+                                            onClick={() => onDeleteVariant?.(variant)}
+                                            style={{
+                                                background: "var(--c-red-bg)",
+                                                border: "none",
+                                                color: "var(--c-red)",
+                                                cursor: "pointer",
+                                                padding: 6,
+                                                borderRadius: 6,
+                                                display: "flex",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Trash2 size={12} />
+                                        </button>
                                     </div>
                                 </div>
                             )

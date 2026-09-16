@@ -11,6 +11,8 @@ import type {
     Product,
     CreateProductPayload,
     UpdateProductPayload,
+    CreateProductVariantPayload,
+    UpdateProductVariantPayload,
 } from "@/features/Product/types/product.type";
 
 interface ProductQuery {
@@ -60,6 +62,23 @@ interface ProductContextValue {
         id: string
     ) => Promise<ActionResult>;
 
+    createVariant: (
+        productId: string,
+        payload: CreateProductVariantPayload
+    ) => Promise<ActionResult>;
+
+    updateVariant: (
+        productId: string,
+        variantId: string,
+        payload: UpdateProductVariantPayload
+    ) => Promise<ActionResult>;
+
+    deleteVariant: (
+        productId: string,
+        variantId: string
+    ) => Promise<ActionResult>;
+
+    selectProduct: (product: Product) => void;
     clearProduct: () => void;
 }
 
@@ -280,10 +299,105 @@ export function ProductProvider({
     );
 
     /**
+     * Create variant
+     */
+    const createVariant = useCallback(
+        async (
+            productId: string,
+            payload: CreateProductVariantPayload
+        ): Promise<ActionResult> => {
+            setLoading(true);
+
+            try {
+                await productApi.createVariant(productId, payload);
+                await getProduct(productId); // Refresh product detail
+
+                return { ok: true };
+            } catch (error: any) {
+                return {
+                    ok: false,
+                    error:
+                        error?.response?.data?.message ??
+                        "Failed to create variant",
+                };
+            } finally {
+                setLoading(false);
+            }
+        },
+        [getProduct]
+    );
+
+    /**
+     * Update variant
+     */
+    const updateVariant = useCallback(
+        async (
+            productId: string,
+            variantId: string,
+            payload: UpdateProductVariantPayload
+        ): Promise<ActionResult> => {
+            setLoading(true);
+
+            try {
+                await productApi.updateVariant(productId, variantId, payload);
+                await getProduct(productId); // Refresh product detail
+
+                return { ok: true };
+            } catch (error: any) {
+                return {
+                    ok: false,
+                    error:
+                        error?.response?.data?.message ??
+                        "Failed to update variant",
+                };
+            } finally {
+                setLoading(false);
+            }
+        },
+        [getProduct]
+    );
+
+    /**
+     * Delete variant
+     */
+    const deleteVariant = useCallback(
+        async (
+            productId: string,
+            variantId: string
+        ): Promise<ActionResult> => {
+            setLoading(true);
+
+            try {
+                await productApi.deleteVariant(productId, variantId);
+                await getProduct(productId); // Refresh product detail
+
+                return { ok: true };
+            } catch (error: any) {
+                return {
+                    ok: false,
+                    error:
+                        error?.response?.data?.message ??
+                        "Failed to delete variant",
+                };
+            } finally {
+                setLoading(false);
+            }
+        },
+        [getProduct]
+    );
+
+    /**
      * Clear selected product
      */
     const clearProduct = useCallback(() => {
         setProduct(null);
+    }, []);
+
+    /**
+     * Select product (instant view)
+     */
+    const selectProduct = useCallback((p: Product) => {
+        setProduct(p);
     }, []);
 
     return (
@@ -298,6 +412,10 @@ export function ProductProvider({
                 createProduct,
                 updateProduct,
                 deleteProduct,
+                createVariant,
+                updateVariant,
+                deleteVariant,
+                selectProduct,
                 clearProduct,
             }}
         >

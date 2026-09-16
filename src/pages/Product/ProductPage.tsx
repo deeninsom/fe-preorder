@@ -13,12 +13,14 @@ import type {
     CreateProductPayload,
     UpdateProductPayload,
     ProductTab,
+    ProductVariant,
 } from "@/features/Product/types/product.type";
 
 import { useProduct } from "@/features/Product/hooks/useProduct";
 import ProductTable from "@/features/Product/components/ProductTable";
 import ProductDetailDrawer from "@/features/Product/components/ProductDetailDrawer";
 import ProductFormModal from "@/features/Product/components/ProductFormModal";
+import VariantFormModal from "@/features/Product/components/VariantFormModal";
 
 const TABS: {
     label: string;
@@ -40,6 +42,10 @@ export default function ProductPage() {
         createProduct,
         updateProduct,
         deleteProduct,
+        createVariant,
+        updateVariant,
+        deleteVariant,
+        selectProduct,
         clearProduct,
     } = useProduct();
 
@@ -56,6 +62,15 @@ export default function ProductPage() {
 
     const [deleteConfirm, setDeleteConfirm] =
         useState<Product | null>(null);
+
+    const [showVariantForm, setShowVariantForm] =
+        useState(false);
+
+    const [editingVariant, setEditingVariant] =
+        useState<ProductVariant | null>(null);
+
+    const [deleteVariantConfirm, setDeleteVariantConfirm] =
+        useState<ProductVariant | null>(null);
 
     const [tab, setTab] =
         useState<ProductTab>("ALL");
@@ -258,21 +273,8 @@ export default function ProductPage() {
         });
     };
 
-    const handleView = async (
-        selectedProduct: Product,
-    ) => {
-        const result =
-            await getProduct(
-                selectedProduct.id,
-            );
-
-        if (!result.ok) {
-            toastError?.(
-                "Failed to load product",
-                result.error ??
-                "Something went wrong.",
-            );
-        }
+    const handleView = (selectedProduct: Product) => {
+        selectProduct(selectedProduct);
     };
 
     const handleEdit = (
@@ -281,6 +283,42 @@ export default function ProductPage() {
         setEditingProduct(
             selectedProduct,
         );
+    };
+
+    const handleCreateVariant = async (
+        productId: string,
+        payload: import("@/features/Product/types/product.type").CreateProductVariantPayload
+    ) => {
+        const result = await createVariant(productId, payload);
+        if (!result.ok) {
+            toastError?.("Failed to create variant", result.error ?? "Something went wrong.");
+            return false;
+        }
+        return true;
+    };
+
+    const handleUpdateVariant = async (
+        productId: string,
+        variantId: string,
+        payload: import("@/features/Product/types/product.type").UpdateProductVariantPayload
+    ) => {
+        const result = await updateVariant(productId, variantId, payload);
+        if (!result.ok) {
+            toastError?.("Failed to update variant", result.error ?? "Something went wrong.");
+            return false;
+        }
+        return true;
+    };
+
+    const handleDeleteVariant = async () => {
+        if (!deleteVariantConfirm || !product) return;
+        const result = await deleteVariant(product.id, deleteVariantConfirm.id);
+        if (!result.ok) {
+            toastError?.("Failed to delete variant", result.error ?? "Something went wrong.");
+            return;
+        }
+        success("Variant deleted", `${deleteVariantConfirm.name} has been deleted.`);
+        setDeleteVariantConfirm(null);
     };
 
     return (
@@ -481,6 +519,17 @@ export default function ProductPage() {
                         item,
                     );
                 }}
+                onAddVariant={() => {
+                    setEditingVariant(null);
+                    setShowVariantForm(true);
+                }}
+                onEditVariant={(variant) => {
+                    setEditingVariant(variant);
+                    setShowVariantForm(true);
+                }}
+                onDeleteVariant={(variant) => {
+                    setDeleteVariantConfirm(variant);
+                }}
             />
 
             {/* CREATE / EDIT */}
@@ -655,6 +704,200 @@ export default function ProductPage() {
                                 type="button"
                                 onClick={() =>
                                     setDeleteConfirm(
+                                        null,
+                                    )
+                                }
+                                disabled={
+                                    loading
+                                }
+                                className="flex-1 rounded-lg py-2.5 text-sm"
+                                style={{
+                                    border:
+                                        "1px solid var(--c-border)",
+                                    background:
+                                        "var(--c-surface2)",
+                                    color:
+                                        "var(--c-muted)",
+                                    cursor:
+                                        loading
+                                            ? "not-allowed"
+                                            : "pointer",
+                                    opacity:
+                                        loading
+                                            ? 0.6
+                                            : 1,
+                                }}
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* VARIANT FORM MODAL */}
+
+            {product && (
+                <VariantFormModal
+                    open={showVariantForm}
+                    productId={product.id}
+                    variant={editingVariant}
+                    loading={loading}
+                    onClose={() => {
+                        setShowVariantForm(false);
+                        setEditingVariant(null);
+                    }}
+                    onCreate={handleCreateVariant}
+                    onUpdate={handleUpdateVariant}
+                />
+            )}
+
+            {/* DELETE VARIANT CONFIRM */}
+
+            {deleteVariantConfirm && product && (
+                <div
+                    className="fixed inset-0 z-[300] flex items-center justify-center p-5"
+                    style={{
+                        background:
+                            "rgba(0,0,0,0.55)",
+                        backdropFilter:
+                            "blur(3px)",
+                    }}
+                >
+                    <div
+                        className="w-full max-w-[380px] rounded-2xl p-7"
+                        style={{
+                            background:
+                                "var(--c-surface)",
+                            border:
+                                "1px solid var(--c-border)",
+                            boxShadow:
+                                "0 24px 70px rgba(0,0,0,0.35)",
+                        }}
+                    >
+                        <div className="mb-4 flex items-center gap-3">
+                            <div
+                                className="flex h-[38px] w-[38px] items-center justify-center rounded-full"
+                                style={{
+                                    background:
+                                        "var(--c-red-bg)",
+                                }}
+                            >
+                                <AlertTriangle
+                                    size={17}
+                                    color="var(--c-red)"
+                                />
+                            </div>
+
+                            <div>
+                                <h2
+                                    style={{
+                                        margin: 0,
+                                        fontSize: 16,
+                                        fontWeight: 700,
+                                        color: "var(--c-text)",
+                                    }}
+                                >
+                                    Delete variant?
+                                </h2>
+
+                                <div
+                                    style={{
+                                        marginTop: 2,
+                                        fontSize: 10.5,
+                                        color: "var(--c-dim)",
+                                    }}
+                                >
+                                    This action cannot be undone.
+                                </div>
+                            </div>
+
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setDeleteVariantConfirm(
+                                        null,
+                                    )
+                                }
+                                style={{
+                                    marginLeft:
+                                        "auto",
+                                    display:
+                                        "flex",
+                                    background:
+                                        "transparent",
+                                    border:
+                                        "none",
+                                    color:
+                                        "var(--c-dim)",
+                                    cursor:
+                                        "pointer",
+                                }}
+                            >
+                                <X size={16} />
+                            </button>
+                        </div>
+
+                        <p
+                            style={{
+                                margin:
+                                    "0 0 22px",
+                                    fontSize: 12.5,
+                                lineHeight:
+                                    1.6,
+                                color:
+                                    "var(--c-muted)",
+                            }}
+                        >
+                            <strong
+                                style={{
+                                    color:
+                                        "var(--c-text)",
+                                }}
+                            >
+                                {
+                                    deleteVariantConfirm.name
+                                }
+                            </strong>{" "}
+                            will be permanently deleted.
+                        </p>
+
+                        <div className="flex gap-2.5">
+                            <button
+                                type="button"
+                                onClick={
+                                    handleDeleteVariant
+                                }
+                                disabled={
+                                    loading
+                                }
+                                className="flex-1 rounded-lg py-2.5 text-sm font-semibold"
+                                style={{
+                                    background:
+                                        "var(--c-red)",
+                                    color:
+                                        "#fff",
+                                    border:
+                                        "none",
+                                    cursor:
+                                        loading
+                                            ? "not-allowed"
+                                            : "pointer",
+                                    opacity:
+                                        loading
+                                            ? 0.6
+                                            : 1,
+                                }}
+                            >
+                                {loading
+                                    ? "Deleting..."
+                                    : "Delete"}
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={() =>
+                                    setDeleteVariantConfirm(
                                         null,
                                     )
                                 }

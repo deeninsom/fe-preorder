@@ -2,7 +2,7 @@ export interface ProductVariant {
     id: string;
     productId: string;
     name: string;
-    sku?: number | null;
+    sku?: string | null;
     price?: number | null;
     stock: number;
     isActive: boolean;
@@ -60,7 +60,7 @@ export interface UpdateProductPayload {
 
 export interface CreateProductVariantPayload {
     name: string;
-    sku?: number;
+    sku?: string;
     price?: number;
     stock?: number;
     isActive?: boolean;
@@ -68,7 +68,7 @@ export interface CreateProductVariantPayload {
 
 export interface UpdateProductVariantPayload {
     name?: string;
-    sku?: number;
+    sku?: string;
     price?: number;
     stock?: number;
     isActive?: boolean;
