@@ -33,7 +33,7 @@ export default function ProductDetailDrawer({
     }
 
     const formatPrice = (
-        value: string | null | undefined
+        value: number | string | null | undefined
     ) => {
         if (!value) {
             return "—";

@@ -27,6 +27,9 @@ interface ProductMeta {
     limit: number;
     total: number;
     totalPages: number;
+    totalAll?: number;
+    totalActive?: number;
+    totalArchived?: number;
 }
 
 interface ActionResult {

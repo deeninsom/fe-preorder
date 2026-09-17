@@ -20,6 +20,7 @@ import type {
 import { useNotification } from "@/contexts/NotificationContext";
 import CurrencyInput from "@/components/ui/CurrencyInput";
 import { uploadImage } from "@/features/FileStorage/api/file-storage.api";
+import { SecureImage } from "@/components/ui/SecureImage";
 
 interface ProductFormModalProps {
     open: boolean;
@@ -749,16 +750,19 @@ export default function ProductFormModal({
                                 >
                                     {imagePreview ? (
                                         <div className="flex items-start gap-4">
-                                            <img
-                                                src={
-                                                    imagePreview
-                                                }
-                                                alt={
-                                                    form.name ||
-                                                    "Product"
-                                                }
-                                                className="h-28 w-28 rounded-xl object-cover"
-                                            />
+                                            {imagePreview.startsWith("blob:") ? (
+                                                <img
+                                                    src={imagePreview}
+                                                    alt={form.name || "Product"}
+                                                    className="h-28 w-28 rounded-xl object-cover"
+                                                />
+                                            ) : (
+                                                <SecureImage
+                                                    src={imagePreview}
+                                                    alt={form.name || "Product"}
+                                                    className="h-28 w-28 rounded-xl object-cover"
+                                                />
+                                            )}
 
                                             <div className="flex flex-col gap-2">
                                                 <span

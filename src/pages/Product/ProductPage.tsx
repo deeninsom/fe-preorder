@@ -438,10 +438,11 @@ export default function ProductPage() {
                                             : "var(--c-dim)",
                                 }}
                             >
-                                {active
-                                    ? meta?.total ??
-                                    products.length
-                                    : "-"}
+                                {item.value === "ALL"
+                                    ? meta?.totalAll ?? "-"
+                                    : item.value === "ACTIVE"
+                                      ? meta?.totalActive ?? "-"
+                                      : meta?.totalArchived ?? "-"}
                             </span>
 
                             {active && (
