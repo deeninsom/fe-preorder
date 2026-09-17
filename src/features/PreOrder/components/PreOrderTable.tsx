@@ -119,10 +119,6 @@ export default function PreOrderTable({
                         bg = "var(--c-green-bg)";
                         color = "var(--c-green)";
                         break;
-                    case "PUBLISHED":
-                        bg = "var(--c-cyan-bg)";
-                        color = "var(--c-cyan)";
-                        break;
                     case "PAUSED":
                         bg = "var(--c-amber-bg)";
                         color = "var(--c-amber)";

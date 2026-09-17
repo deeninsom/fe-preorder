@@ -152,7 +152,7 @@ export default function PreOrderDetailDrawer({
                             </button>
                         )}
 
-                        {["PUBLISHED", "ACTIVE"].includes(preOrder.status) && (
+                        {["ACTIVE"].includes(preOrder.status) && (
                             <button
                                 type="button"
                                 onClick={() => onClosePreOrder?.(preOrder)}
