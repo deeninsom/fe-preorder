@@ -91,4 +91,23 @@ export const preorderApi = {
     deleteItem: async (preOrderId: string, itemId: string): Promise<void> => {
         await api.delete(`/pre-order/${preOrderId}/items/${itemId}`);
     },
+
+    // =========================
+    // PUBLIC (Customer facing)
+    // =========================
+
+    getPublicPreOrder: async (storeSlug: string, poSlug: string) => {
+        const response = await api.get(`/public/${storeSlug}/${poSlug}`);
+        return response.data;
+    },
+
+    submitPublicOrder: async (storeSlug: string, poSlug: string, payload: any) => {
+        // MOCK API: In a real app, this would hit the backend
+        // We'll simulate a 1s delay
+        return new Promise((resolve) => {
+            setTimeout(() => {
+                resolve({ success: true, orderId: "ORD-" + Math.floor(Math.random() * 10000) });
+            }, 1000);
+        });
+    },
 };

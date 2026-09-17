@@ -4,10 +4,10 @@ export interface AuthUser {
     email: string;
     phone?: string | null;
     role: string;
-    tenantId?: string | null;
+    storeId?: string | null;
     isActive: boolean;
 
-    tenant?: {
+    store?: {
         id: string;
         name: string;
         slug: string;

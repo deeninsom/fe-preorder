@@ -1,4 +1,6 @@
 import { createBrowserRouter, Navigate } from "react-router-dom";
+import LandingPage from "@/pages/LandingPage";
+import CustomerPreOrderPage from "@/pages/PreOrder/CustomerPreOrderPage";
 
 import Layout from "@/components/layout/Layout";
 
@@ -41,6 +43,11 @@ function ProtectedLayout() {
 
 export const router = createBrowserRouter([
   {
+    path: "/",
+    element: <LandingPage />,
+  },
+
+  {
     path: "/login",
     element: <Login />,
   },
@@ -48,6 +55,11 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+
+  {
+    path: "/p/:storeSlug/:poSlug",
+    element: <CustomerPreOrderPage />,
   },
 
   {

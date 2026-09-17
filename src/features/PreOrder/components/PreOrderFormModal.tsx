@@ -159,8 +159,6 @@ export default function PreOrderFormModal({
             return;
         }
 
-
-
         const startsAt = new Date(form.startsAt).toISOString();
         const endsAt = new Date(form.endsAt).toISOString();
 
@@ -194,12 +192,14 @@ export default function PreOrderFormModal({
                 return;
             }
 
+            // If a product is selected, attach it. Otherwise items is empty = all products.
+            const items = selectedProduct
+                ? [{ productId: selectedProduct.id, variantId: selectedVariant?.id }]
+                : [];
+
             const createPayload = {
                 ...basePayload,
-                items: [{
-                    productId: selectedProduct!.id,
-                    variantId: selectedVariant?.id,
-                }],
+                items,
             };
 
             const result = await onCreate(createPayload);

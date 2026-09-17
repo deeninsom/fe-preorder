@@ -76,8 +76,8 @@ export default function Layout() {
         <div className="p-2 border-b border-[var(--c-border2)]">
           <div className="flex items-center justify-between py-1.5 px-2 rounded-lg cursor-pointer hover:bg-[var(--c-surface2)] transition-colors">
             <div>
-              <div className="text-[11px] font-semibold text-[var(--c-text)]">{user?.tenant?.name || "No Tenant"}</div>
-              <div className="text-[9px] font-mono text-[var(--c-dim)]">{user?.tenantId || "SAAS-ROOT"}</div>
+              <div className="text-[11px] font-semibold text-[var(--c-text)]">{user?.store?.name || "No Store"}</div>
+              <div className="text-[9px] font-mono text-[var(--c-dim)]">{user?.storeId || "SAAS-ROOT"}</div>
             </div>
             <ChevronDown size={12} color="var(--c-dim)" />
           </div>

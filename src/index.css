@@ -9,56 +9,56 @@ body,
 
 /* ── Light theme (default) ── */
 :root {
-  --c-bg: #faf6f3;
+  --c-bg: #f7f6f2;
   --c-surface: #ffffff;
-  --c-surface2: #fdf2ea;
-  --c-surface3: #f5e4d8;
-  --c-border: #ead7cc;
-  --c-border2: #f4e8e1;
-  --c-text: #3f312b;
-  --c-muted: #79655b;
-  --c-dim: #a8958b;
-  --c-accent: #c45b36;
-  --c-accent-bg: #f9d8c8;
-  --c-green: #10b981;
-  --c-green-bg: #d1fae5;
-  --c-amber: #f59e0b;
-  --c-amber-bg: #fef3c7;
-  --c-red: #ef4444;
-  --c-red-bg: #fee2e2;
-  --c-cyan: #06b6d4;
-  --c-cyan-bg: #cffafe;
-  --c-purple: #8b5cf6;
-  --c-purple-bg: #ede9fe;
-  --c-sidebar: #ffffff;
+  --c-surface2: #fcfcfc;
+  --c-surface3: #ecebf8;
+  --c-border: #deded8;
+  --c-border2: #eeeee9;
+  --c-text: #171719;
+  --c-muted: #68686d;
+  --c-dim: #a5a5a6;
+  --c-accent: #5960e8;
+  --c-accent-bg: #ecebf8;
+  --c-green: #45c8b0;
+  --c-green-bg: #e9f8ee;
+  --c-amber: #de9560;
+  --c-amber-bg: #fff2df;
+  --c-red: #ff806d;
+  --c-red-bg: #ffe6df;
+  --c-cyan: #4b6ea9;
+  --c-cyan-bg: #edf3ff;
+  --c-purple: #403a9f;
+  --c-purple-bg: #e9e7ff;
+  --c-sidebar: #f7f6f2;
   --c-topbar: #ffffff;
 }
 
-/* ── Dark theme ── */
+/* ── Dark theme ── aligned with landing page */
 .dark {
-  --c-bg: #1a1614;
-  --c-surface: #241e1b;
-  --c-surface2: #2e2622;
-  --c-surface3: #382f2a;
-  --c-border: #423832;
-  --c-border2: #302824;
-  --c-text: #f0e9e4;
-  --c-muted: #a8988e;
-  --c-dim: #70625a;
-  --c-accent: #de724b;
-  --c-accent-bg: #4a2315;
-  --c-green: #10b981;
-  --c-green-bg: #064e3b;
-  --c-amber: #f59e0b;
-  --c-amber-bg: #78350f;
-  --c-red: #ef4444;
-  --c-red-bg: #7f1d1d;
-  --c-cyan: #22d3ee;
-  --c-cyan-bg: #164e63;
-  --c-purple: #d946ef;
-  --c-purple-bg: #4a044e;
-  --c-sidebar: #1a1614;
-  --c-topbar: #241e1b;
+  --c-bg: #171719;
+  --c-surface: #1e1e21;
+  --c-surface2: #252529;
+  --c-surface3: #2c2c30;
+  --c-border: #363638;
+  --c-border2: #2d2d30;
+  --c-text: #f7f6f2;
+  --c-muted: #a3a3a7;
+  --c-dim: #77777b;
+  --c-accent: #6557d8;
+  --c-accent-bg: rgba(101, 87, 216, 0.15);
+  --c-green: #51bf7e;
+  --c-green-bg: rgba(81, 191, 126, 0.15);
+  --c-amber: #de9560;
+  --c-amber-bg: rgba(222, 149, 96, 0.15);
+  --c-red: #ff806d;
+  --c-red-bg: rgba(255, 128, 109, 0.15);
+  --c-cyan: #5a8fd4;
+  --c-cyan-bg: rgba(90, 143, 212, 0.15);
+  --c-purple: #aeb3ff;
+  --c-purple-bg: rgba(174, 179, 255, 0.15);
+  --c-sidebar: #171719;
+  --c-topbar: #171719;
 }
 
 * {

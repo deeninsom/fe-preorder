@@ -8,11 +8,20 @@ import {
     Pause,
     CheckSquare,
     Globe,
+    Copy,
+    ExternalLink,
+    Link2,
+    Share2,
+    Info,
+    Check,
 } from "lucide-react";
+import { useState } from "react";
 import { format } from "date-fns";
+import { toast } from "sonner";
 
 import type { PreOrder, PreOrderItem } from "@/features/PreOrder/types/preorder.type";
 import { SecureImage } from "@/components/ui/SecureImage";
+import { useAuth } from "@/features/Auth/hooks/useAuth";
 
 interface PreOrderDetailDrawerProps {
     preOrder: PreOrder | null;
@@ -21,8 +30,6 @@ interface PreOrderDetailDrawerProps {
 
     // Status actions
     onPublish?: (preOrder: PreOrder) => void;
-    onPause?: (preOrder: PreOrder) => void;
-    onResume?: (preOrder: PreOrder) => void;
     onClosePreOrder?: (preOrder: PreOrder) => void;
 
     // Item actions
@@ -36,14 +43,27 @@ export default function PreOrderDetailDrawer({
     onClose,
     onEdit,
     onPublish,
-    onPause,
-    onResume,
     onClosePreOrder,
     onAddItem,
     onEditItem,
     onDeleteItem,
 }: PreOrderDetailDrawerProps) {
+    const { user } = useAuth();
+    const [copied, setCopied] = useState(false);
+
     if (!preOrder) return null;
+
+    const publicLink = user?.store?.slug
+        ? `${window.location.origin}/p/${user.store.slug}/${preOrder.slug}`
+        : null;
+
+    const handleCopyLink = () => {
+        if (!publicLink) return;
+        navigator.clipboard.writeText(publicLink);
+        setCopied(true);
+        toast.success("Link berhasil disalin!");
+        setTimeout(() => setCopied(false), 2000);
+    };
 
     const formatPrice = (value: number | string | null | undefined) => {
         if (value === null || value === undefined) return "—";
@@ -117,29 +137,22 @@ export default function PreOrderDetailDrawer({
                             </button>
                         )}
 
-                        {preOrder.status === "PUBLISHED" || preOrder.status === "ACTIVE" ? (
+                        {(preOrder.status === "ACTIVE") && user?.store?.slug && (
                             <button
                                 type="button"
-                                onClick={() => onPause?.(preOrder)}
-                                className="flex items-center justify-center gap-2 rounded-lg py-2.5 text-xs font-medium transition"
-                                style={{ background: "var(--c-amber-bg)", color: "var(--c-amber)", border: "1px solid var(--c-amber)" }}
+                                onClick={() => {
+                                    const link = `${window.location.origin}/p/${user.store?.slug}/${preOrder.slug}`;
+                                    navigator.clipboard.writeText(link);
+                                    toast.success("Link berhasil disalin!");
+                                }}
+                                className="flex items-center justify-center gap-2 rounded-lg py-2.5 text-xs font-medium text-white transition"
+                                style={{ background: "var(--c-accent)" }}
                             >
-                                <Pause size={14} /> Pause
-                            </button>
-                        ) : null}
-
-                        {preOrder.status === "PAUSED" && (
-                            <button
-                                type="button"
-                                onClick={() => onResume?.(preOrder)}
-                                className="flex items-center justify-center gap-2 rounded-lg py-2.5 text-xs font-medium transition"
-                                style={{ background: "var(--c-green-bg)", color: "var(--c-green)", border: "1px solid var(--c-green)" }}
-                            >
-                                <Play size={14} /> Resume
+                                <Copy size={14} /> Copy Link
                             </button>
                         )}
 
-                        {["PUBLISHED", "ACTIVE", "PAUSED"].includes(preOrder.status) && (
+                        {["PUBLISHED", "ACTIVE"].includes(preOrder.status) && (
                             <button
                                 type="button"
                                 onClick={() => onClosePreOrder?.(preOrder)}
@@ -159,6 +172,105 @@ export default function PreOrderDetailDrawer({
                         <InfoItem label="Ends At" value={format(new Date(preOrder.endsAt), "dd MMM yyyy HH:mm")} />
                         <InfoItem label="Order Limit" value={preOrder.orderLimit ? String(preOrder.orderLimit) : "No Limit"} />
                     </div>
+
+                    {/* Seller Info Card */}
+                    {publicLink && preOrder.status === "ACTIVE" && (
+                        <div
+                            className="mb-8 rounded-xl p-4"
+                            style={{
+                                background: "linear-gradient(135deg, var(--c-accent-bg), var(--c-surface2))",
+                                border: "1px solid var(--c-border)",
+                            }}
+                        >
+                            <div className="mb-3 flex items-center gap-2">
+                                <div
+                                    className="flex h-7 w-7 items-center justify-center rounded-lg"
+                                    style={{ background: "var(--c-accent)", color: "#fff" }}
+                                >
+                                    <Share2 size={13} />
+                                </div>
+                                <h4 className="text-xs font-bold" style={{ color: "var(--c-text)" }}>
+                                    Bagikan ke Pelanggan
+                                </h4>
+                            </div>
+
+                            {/* Link display */}
+                            <div
+                                className="mb-3 flex items-center gap-2 rounded-lg p-2.5"
+                                style={{
+                                    background: "var(--c-surface)",
+                                    border: "1px solid var(--c-border)",
+                                }}
+                            >
+                                <Link2 size={13} style={{ color: "var(--c-accent)", flexShrink: 0 }} />
+                                <span
+                                    className="flex-1 truncate font-mono text-[11px]"
+                                    style={{ color: "var(--c-text)" }}
+                                    title={publicLink}
+                                >
+                                    {publicLink}
+                                </span>
+                            </div>
+
+                            {/* Action buttons */}
+                            <div className="grid grid-cols-2 gap-2">
+                                <button
+                                    type="button"
+                                    onClick={handleCopyLink}
+                                    className="flex items-center justify-center gap-1.5 rounded-lg py-2 text-[11px] font-semibold transition"
+                                    style={{
+                                        background: copied ? "var(--c-green)" : "var(--c-accent)",
+                                        color: "#fff",
+                                    }}
+                                >
+                                    {copied ? <Check size={12} /> : <Copy size={12} />}
+                                    {copied ? "Tersalin!" : "Salin Link"}
+                                </button>
+                                <a
+                                    href={publicLink}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    className="flex items-center justify-center gap-1.5 rounded-lg py-2 text-[11px] font-semibold transition no-underline"
+                                    style={{
+                                        background: "var(--c-surface)",
+                                        color: "var(--c-text)",
+                                        border: "1px solid var(--c-border)",
+                                    }}
+                                >
+                                    <ExternalLink size={12} />
+                                    Buka Preview
+                                </a>
+                            </div>
+
+                            {/* Helpful tip */}
+                            <div className="mt-3 flex gap-2 rounded-lg p-2.5" style={{ background: "rgba(89,96,232,0.06)" }}>
+                                <Info size={13} style={{ color: "var(--c-accent)", flexShrink: 0, marginTop: 1 }} />
+                                <p className="text-[10.5px] leading-relaxed" style={{ color: "var(--c-muted)" }}>
+                                    Bagikan link ini ke pelanggan Anda. Pelanggan bisa langsung memilih produk dan melakukan pemesanan (checkout) langsung di website ini.
+                                </p>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Seller Info - Draft/Upcoming */}
+                    {(!publicLink || preOrder.status !== "ACTIVE") && (
+                        <div
+                            className="mb-8 flex items-start gap-2.5 rounded-xl p-3.5"
+                            style={{
+                                background: "var(--c-amber-bg)",
+                                border: "1px solid rgba(222,149,96,0.15)",
+                            }}
+                        >
+                            <Info size={14} style={{ color: "var(--c-amber)", flexShrink: 0, marginTop: 1 }} />
+                            <p className="text-[11px] leading-relaxed" style={{ color: "var(--c-amber)" }}>
+                                {preOrder.status === "DRAFT"
+                                    ? "Publish PreOrder ini terlebih dahulu untuk mendapatkan link yang bisa dibagikan ke pelanggan."
+                                    : preOrder.status === "CLOSED" || preOrder.status === "EXPIRED"
+                                        ? "PreOrder ini sudah ditutup. Link tidak bisa diakses pelanggan."
+                                        : "PreOrder belum aktif. Tunggu sampai waktu mulai untuk mendapatkan link aktif."}
+                            </p>
+                        </div>
+                    )}
 
                     {/* PreOrder Items */}
                     <div>
